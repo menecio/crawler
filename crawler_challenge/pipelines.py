@@ -1,8 +1,8 @@
 from scrapy import signals
 from scrapy.exporters import XmlItemExporter
 
-class SitemapExportPipeline(object):
 
+class SitemapExportPipeline(object):
     def __init__(self):
         self.files = {}
 
@@ -16,7 +16,11 @@ class SitemapExportPipeline(object):
     def spider_opened(self, spider):
         file = open('sitemap.xml', 'w+b')
         self.files[spider] = file
-        self.exporter = XmlItemExporter(file, item_element='url', root_element='urlset')
+        self.exporter = XmlItemExporter(
+            file, 
+            item_element='url',
+            root_element='urlset'
+        )
         self.exporter.start_exporting()
 
     def spider_closed(self, spider):
@@ -27,4 +31,3 @@ class SitemapExportPipeline(object):
     def process_item(self, item, spider):
         self.exporter.export_item(item)
         return item
-
