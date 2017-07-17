@@ -16,7 +16,7 @@ class SitemapExportPipeline(object):
     def spider_opened(self, spider):
         file = open('sitemap.xml', 'w+b')
         self.files[spider] = file
-        self.exporter = XmlItemExporter(file, item_element='url', root_element='urls')
+        self.exporter = XmlItemExporter(file, item_element='url', root_element='urlset')
         self.exporter.start_exporting()
 
     def spider_closed(self, spider):
